@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+    <head>
+        <meta charset="UTF-8">
+        <title>函数组件</title>
+    </head>
+    <body>
+        <div id="app">
+            <smart-item :data="data"></smart-item>
+            <button @click="change('img')">切换为图片组件</button>
+            <button @click="change('video')">切换为视频组件</button>
+            <button @click="change('text')">切换为文本组件</button>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            // 图片组件选项
+            var ImgItem = {
+                props: ['data'],
+                render: function (createElement) {
+                    return createElement('div', [
+                        createElement('p', '图片组件'),
+                        createElement('img', {
+                            attrs: {
+                                src: this.data.url
+                            }
+                        })
+                    ])
+                }
+            }
+            // 视频组件选项
+            var VideoItem = {
+                props: ['data'],
+                render: function (createElement) {
+                    return createElement('div', [
+                        createElement('p', '视频组件'),
+                        createElement('video', {
+                            attrs: {
+                                src: this.data.url,
+                                controls: 'controls',
+                                autoplay: 'autoplay'
+                            }
+                        })
+                    ])
+                }
+            }
+            // 纯文本组件选项
+            var TextItem = {
+                props: ['data'],
+                render: function (createElement) {
+                    return createElement('div', [
+                        createElement('p', '纯文本组件'),
+                        createElement('p', this.data.content)
+                    ])
+                }
+            }
+
+            // 函数组件即组件无状态和无实例，也就是没有data和this上下文
+            Vue.component('smart-item', {
+                // 函数化组件（无状态组件）
+                functional: true,
+                /*
+                    使用函数化组件时，Render函数提供了第二个参数context来提供临时上下文，组件需要的data、props、slots、
+                    children、parent都是通过这个上下文来传递的。
+                */
+                render: function (createElement, context) {
+                    function getComponent() {
+                        let data = context.props.data
+                        if (data.type === 'img') return ImgItem
+                        if (data.type === 'video') return VideoItem
+                        return TextItem
+                    }
+                    return createElement(
+                        getComponent(),
+                        {
+                            props: {
+                                // 把smart-item的prop: data传给上面智能选择的组件
+                                data: context.props.data
+                            }
+                        },
+                        context.children
+                    )
+                },
+                props: {
+                    data: {
+                        type: Object,
+                        required: true
+                    }
+                }
+            })
+
+            var app = new Vue({
+                el: "#app",
+                data: {
+                    data: {}
+                },
+                methods: {
+                    change: function (type) {
+                        if (type === 'img') {
+                            this.data = {
+                                type: 'img',
+                                url: 'https://raw.githubusercontent.com/iview/iview/master/assets/logo.png'
+                            }
+                        } else if (type === 'video') {
+                            this.data = {
+                                type: 'video',
+                                url: 'http://vjs.zencdn.net/v/oceans.mp4'
+                            }
+                        } else if (type === 'text') {
+                            this.data = {
+                                type: 'text',
+                                content: '这是一段纯文本'
+                            }
+                        }
+                    }
+                },
+                created: function () {
+                    // 初始化时，默认设置图片组件的数据
+                    this.change('img')
+                }
+            })
+        </script>
+    </body>
+</html>

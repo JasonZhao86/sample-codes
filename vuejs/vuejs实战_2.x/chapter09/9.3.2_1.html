@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <ele>
+                <div>
+                    <Child></Child>
+                </div>
+            </ele>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            // 全局注册组件
+            Vue.component("Child", {
+                render: function (createElement) {
+                    return createElement("p", "text")
+                }
+            })
+
+            /*
+            // 所有的组件树中，如果VNode是组件或含有组件的slot，那么VNode必须唯一，所以下面这种写法也是错的：
+            Vue.component('ele', {
+                render: function (createElement) {
+                    return createElement(
+                        'div',
+                        // 重复使用含有组件slot，这也是错误写法，实际上也只能渲染一次该slot
+                        [
+                            this.$slots.default,
+                            this.$slots.default
+                        ]
+                    )
+                },
+            })
+            */
+
+            // 对于重复渲染多个包含组件的slot，以下是正确的写法
+            Vue.component('ele', {
+                render: function (createElement) {
+                    // 在Render函数里创建了一个cloneVNode的工厂函数，通过递归将slot所有子节点都克隆了一份，井对vNode的关键属性也进行复制。
+                    function cloneVNode(vNode) {
+                        // 递归遍历所有子节点，并克隆
+                        console.log(vNode.children)
+                        const clonedClildren = vNode.children &&
+                            vNode.children.map(function (vNode) {
+                                return cloneVNode(vNode)
+                            })
+                        const cloned = createElement(
+                            vNode.tag,
+                            vNode.data,
+                            clonedClildren
+                        )
+                        cloned.text = vNode.text
+                        cloned.isComment = vNode.isComment
+                        cloned.componentOptions = vNode.componentOptions
+                        cloned.elm = vNode.elm
+                        cloned.context = vNode.context
+                        cloned.ns = vNode.ns
+                        cloned.isStatic = vNode.isStatic
+                        cloned.key = vNode.key
+
+                        return cloned
+                    }
+
+                    const vNodes = this.$slots.default
+                    console.log("==========", vNodes)
+                    const clonedVNodes = vNodes.map(function (vNode) {
+                        return cloneVNode(vNode)
+                    })
+                    const clonedVNodes2 = vNodes.map(function (vNode) {
+                        return cloneVNode(vNode)
+                    })
+                    return createElement('div', [
+                        vNodes,
+                        clonedVNodes,
+                        clonedVNodes2
+                    ])
+                }
+            })
+
+            var app = new Vue({
+                el: "#app",
+            })
+        </script>
+    </body>
+</html>

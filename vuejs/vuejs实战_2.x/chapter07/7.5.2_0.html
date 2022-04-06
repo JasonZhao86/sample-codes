@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <!-- 内联模板，给组件标签使用inline-template特性，组件就会把它的内容当作模板，而不是把它当内容分发给slot -->
+            <my-component inline-template>
+                <!-- 这个根标签是必须的，否则不能正常显示 -->
+                <div>
+                    <h2>在父组件中定义子组件的模板</h2>
+                    <p>{{ message }}</p>
+                    <p>{{ msg }}</p>
+                </div>
+            </my-component>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            // 内联模板的缺点，就是作用域比较难理解，如果不是非常特殊的场景，建议不要轻易使用内联模板。
+            Vue.component("my-component", {
+                // 子组件中没有使用template属性配置模板，改由在父组件中调用该子组件内配置模板
+                data: function () {
+                    return {
+                        msg: "在子组件声明的数据"
+                    }
+                },
+            })
+
+            var app = new Vue({
+                el: "#app",
+                data: {
+                    message: "在父组件声明的数据"
+                }
+            })
+        </script>
+    </body>
+</html>

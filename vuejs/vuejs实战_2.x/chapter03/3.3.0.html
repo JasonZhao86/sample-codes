@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <!-- 注意，这里的reversedText是方法，所以要带（）-->
+            {{ reversedText() }}
+            <br />
+            {{ reversedText2 }}
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            var app1 = new Vue({
+                // el: "#app",
+                el: document.getElementById('app'),
+                data: {
+                    text: "123,456"
+                },
+                methods: {
+                    reversedText: function () {
+                        return this.text.split(",").reverse().join(",")
+                    }
+                },
+                computed: {
+                    reversedText2: function () {
+                        return this.text.split(",").reverse().join(",")
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

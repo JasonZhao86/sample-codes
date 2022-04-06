@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <ele></ele>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            // 定义的子组件选项，注意这不是定义了子组件，而是其一部分：组件选项
+            let Child = {
+                render: function (createElement) {
+                    return createElement("p", "text")
+                }
+            }
+
+            /*
+            // 所有的组件树中，如果VNode是组件或含有组件的slot，那么VNode必须唯一，所以下面这种写法是错的：
+            Vue.component('ele', {
+                render: function (createElement) {
+                    // 这里才是真正创建子组件，使用组件选项Child
+                    var ChildNode = createElement(Child)
+                    return createElement(
+                        'div',
+                        // 重复使用组件，这是错误写法，实际上只能渲染一次ChildNode
+                        [
+                            ChildNode,
+                            ChildNode
+                        ]
+                    )
+                },
+            })
+            */
+
+            // 对于重复渲染多个组件（或元素），以下是正确的写法
+            Vue.component('ele', {
+                render: function (createElement) {
+                    return createElement(
+                        'div',
+                        Array.apply(null,
+                            {
+                                length: 5
+                            }).map(function () {
+                            return createElement(Child)
+                        })
+                    )
+                }
+            })
+
+            var app = new Vue({
+                el: "#app",
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <!-- 如果直接在自定义组件上使用class或:class，样式规则会直接应用到这个组件的根元素上，这种用法仅适用于自定义组件的最外层是一个根元素，否则会无效 -->
+            <my-component :class="{'active': isActive}"></my-component>
+        </div>
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            // 自定义组件
+            Vue.component("my-component", {
+                template: '<p class="article">一些文本</p>'
+            })
+
+            var app = new Vue({
+                el: "#app",
+                data: {
+                    isActive: true,
+                }
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <!-- 元素＜component>用来动态地挂载不同的组件，使用is特性来选择要挂载的组件 -->
+            <components :is="currentView"></components>
+            <button @click="handleChangeView(comA)">切换到A</button>
+            <button @click="handleChangeView(comB)">切换到B</button>
+            <button @click="handleChangeView(comC)">切换到C</button>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            // 声明的全局组件（在Vue实例外部）
+            var comA = {
+                template: "<div>组件A</div>"
+            }
+
+            var comB =  {
+                template: "<div>组件B</div>"
+            }
+
+            var comC = {
+                template: "<div>组件C</div>"
+            }
+
+            var app = new Vue({
+                el: "#app",
+                data: {
+                    currentView: comA
+                },
+                methods: {
+                    handleChangeView: function (component) {
+                        this.currentView = component
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <!-- 单选按钮 -->
+            <input type="radio" :checked="checked" />
+            <label>单选按钮</label>
+
+            <hr />
+            <input type="radio" v-model="pickedList" value="html" id="html">
+            <label for="html">HTML</label>
+            <br />
+            <input type="radio" v-model="pickedList" value="js" id="js">
+            <label for="js">JavaScript</label>
+            <br />
+            <input type="radio" v-model="pickedList" value="css" id="css">
+            <label for="css">CSS</label>
+            <br />
+            <p>选择的项是：{{ pickedList }}</p>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            var app = new Vue({
+                el: "#app",
+                data: {
+                    checked: false,
+                    pickedList: "js"
+                }
+            })
+        </script>
+    </body>
+</html>

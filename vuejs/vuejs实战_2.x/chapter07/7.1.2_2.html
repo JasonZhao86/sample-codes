@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <table>
+            <!-- ＜table＞内直接使用组件是无效的。这种情况下，可以使用特殊的is属性来挂载组件，tbody在渲染时，会被替换为组件的内容 -->
+                <tbody is="my-component"></tbody>
+            </table>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            Vue.component("my-component", {
+                template: "<div>这里是组件的内容</div>"
+            })
+
+            var app = new Vue({
+                el: "#app"
+            })
+        </script>
+    </body>
+</html>

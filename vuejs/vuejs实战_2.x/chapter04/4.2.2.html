@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <div :class="[activeCls, errorCls]"></div>
+            <div :class="[isActive ? activeCls : '', errorCls]"></div>
+        </div>
+
+        <div id="app2">
+            <!-- 使用对象语法代替上面的写法 -->
+            <div :class="[{ 'active': isActive }, errorCls]"></div>
+        </div>
+
+        <div id="app3">
+            <div :class="classes"></div>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            var app = new Vue({
+                el: "#app",
+                data: {
+                    isActive: true,
+                    activeCls: 'active',
+                    errorCls: 'error'
+                }
+            })
+
+            var app2 = new Vue({
+                el: "#app2",
+                data: {
+                    isActive: true,
+                    errorCls: 'error'
+                }
+            })
+
+            var app3 = new Vue({
+                el: "#app3",
+                data: {
+                    size: 'large',
+                    disabled: true
+                },
+                computed: {
+                    classes: function () {
+                        return [
+                            'btn',
+                            {
+                                ['btn-' + this.size]: this.size !== '',
+                                ['btn-disabled']: this.disabled
+                                // 'btn-disabled': this.disabled
+                            }
+                        ]
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+    <head>
+        <meta charset="UTF-8">
+        <title>JSX语法</title>
+    </head>
+    <body>
+        <div id="app">
+            <Anchor></Anchor>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            /*
+            // template写法
+            Vue.component('anchor', {
+                template: "<div :level='1'>" +
+                              "<span>一级</span>标题" +
+                          "</div>"
+            })
+            */
+
+            /*
+            // render函数的写法
+            Vue.component('anchor', {
+                render: function (createElement) {
+                    return createElement('div', {
+                        attrs: {
+                            level: 1
+                        },
+                    }, [
+                        createElement('span', '一级'),
+                        '标题'
+                    ])
+                }
+            })
+
+            var app = new Vue({
+                el: "#app",
+            })
+            */
+
+            // JSX的写法
+            var app = new Vue ({
+                el: '#app',
+                // 这段代码无法直接运行，需要在webpack里配置插件babel-plugin-transform-vue-jsx编译后才可以运行
+                render (h) {
+                    return (
+                        <div level={1}>
+                            <span>一级</span>标题
+                        </div>
+                    )
+                }
+            })
+        </script>
+    </body>
+</html>

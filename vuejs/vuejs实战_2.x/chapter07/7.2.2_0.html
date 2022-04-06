@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <my-component :init-count="1"></my-component>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            // 单项数据流，不希望改变父组件的原始值，props是对象和数组时，在子组件内改变它是会影响父纽件的渲染。
+            Vue.component("my-component", {
+                props: ["initCount"],
+                data: function () {
+                    return {
+                        // 组件初始化时会获取来自父组件的initCount，之后就与之无关了，只用维护count，这样就可以避免直接操作initCount
+                        count: this.initCount
+                    }
+                },
+                template: "<div>{{ count }}</div>",
+            })
+
+            var app = new Vue({
+                el: "#app",
+            })
+        </script>
+    </body>
+</html>

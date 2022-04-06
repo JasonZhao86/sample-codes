@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <my-component></my-component>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <!-- 通过text/x-template类型，和id属性指定一个组件模板，供下面的Vue模板定义中引用，在这里你可以愉快地写HTML代码，
+        不用考虑换行等问题。这种方式也不要滥用，因为它将模板和组件的其他定义隔离了。 -->
+        <script type="text/x-template" id="my-component">
+            <div class="container">
+                <p>这是my-component组件的内容</p>
+            </div>
+        </script>
+        <script>
+            Vue.component("my-component", {
+                // 如果在这里组件模板，其实就是通过JavaScript拼接字符串形成html，效率是很低的，因为不能像写HTML那样舒服。引用外面的模板
+                template: '#my-component'
+            })
+
+            var app = new Vue({
+                el: "#app",
+            })
+        </script>
+    </body>
+</html>

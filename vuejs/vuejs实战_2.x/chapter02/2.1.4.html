@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <h1>{{ date | formatDate }}</h1>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            var padDate = function (value) {
+                return value < 10 ? '0' + value : value
+            }
+
+            var app = new Vue({
+                // el: "#app",
+                el: document.getElementById('app'),
+                data: {
+                    date: new Date(),
+                },
+                filters: {
+                    formatDate: function (value) {
+                        var date = new Date(value)
+                        var year = date.getFullYear()
+                        var month = padDate(date.getMonth() + 1)
+                        var day = padDate(date.getDate())
+                        var hour = padDate(date.getHours())
+                        var minute = padDate(date.getMinutes())
+                        var second = padDate(date.getSeconds())
+                        return year + '-' + month + '-' + day + ' ' + hour + ":" + minute + ':' + second
+                    }
+                },
+                mounted: function () {
+                    var _this = this    // 声明一个变量指向Vue实例this，保证作用域一致
+                    this.timer = setInterval(function () {
+                            _this.date = new Date()
+                        },
+                        1000)
+                },
+                beforeDestroy: function () {
+                    if (this.timer) {
+                        clearInterval(this.timer)  // 在Vue实例销毁前，清除我们的定时器
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

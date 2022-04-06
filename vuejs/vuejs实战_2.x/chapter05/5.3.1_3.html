@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <span v-for="value in user">{{ value }}</span>
+            <hr />
+            <span v-for="(value, key, index) in user">{{ index }} - {{ key }}: {{ value }}<br /></span>
+            <hr />
+            <span v-for="n in 10">{{ n }}</span>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            new Vue({
+                el: "#app",
+                data: {
+                    user: {
+                        name: 'Ares',
+                        gender: '男',
+                        age: 26
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

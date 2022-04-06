@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <div v-test:msg.a.b="message"></div>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            var app = new Vue({
+                el: "#app",
+                // 定义局部自定义指令
+                directives: {
+                    test: {
+                        bind: function (el, binding, vnode) {
+                            let keys = []
+                            for (let key in vnode) {
+                                keys.push(key)
+                            }
+                            el.innerHTML =
+                                'name: ' + binding.name + '<br />' +
+                                'value: ' + binding.value + '<br />' +
+                                'expression: ' + binding.expression + '<br />' +
+                                'argument: ' + binding.arg + '<br />' +
+                                'modifiers: ' + JSON.stringify(binding.modifiers) + '<br />' +
+                                'vnode keys: ' + keys.join(', ')
+                        }
+                    }
+                },
+                data: {
+                    message: 'some text'
+                }
+            })
+        </script>
+    </body>
+</html>

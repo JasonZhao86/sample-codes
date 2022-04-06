@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            总价：{{ price }}
+        </div>
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            var app = new Vue({
+                // el: "#app",
+                el: document.getElementById('app'),
+                data: {
+                    package1: [
+                        {
+                            name: 'iPhone 7',
+                            price: 7199,
+                            count: 2,
+                        },
+                        {
+                            name: 'ipad',
+                            price: 2888,
+                            count: 1,
+                        }
+                    ],
+                    package2: [
+                        {
+                            name: 'apple',
+                            price: 3,
+                            count: 5,
+                        },
+                        {
+                            name: 'banana',
+                            price: 2,
+                            count: 10,
+                        }
+                    ],
+                },
+                computed: {
+                    price: function () {
+                        var price = 0
+                        // 这里的this指向的是当前的Vue实例
+                        for (var i=0;i<this.package1.length;i++) {
+                            price += this.package1[i].price * this.package1[i].count
+                        }
+                        for (var i=0;i<this.package2.length;i++) {
+                            price += this.package2[i].price * this.package2[i].count
+                        }
+                        return price
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

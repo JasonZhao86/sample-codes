@@ -1,0 +1,18 @@
+.DS_Store
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+tests/**/coverage/
+
+# Editor directories and files
+.idea
+vuejs/vuejs实战_2.x/.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln

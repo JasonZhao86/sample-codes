@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <!-- 复选框 -->
+        <div id="app">
+            <input type="checkbox" v-model="checked" id="checked" />
+            <label for="checked">选择状态：{{ checked }}</label>
+        
+            <hr />
+            <input type="checkbox" v-model="checkedList" value="html" id="html">
+            <label for="html">HTML</label>
+            <br />
+            <input type="checkbox" v-model="checkedList" value="js" id="js">
+            <label for="js">JavaScript</label>
+            <br />
+            <input type="checkbox" v-model="checkedList" value="css" id="css">
+            <label for="css">CSS</label>
+            <br />
+            <p>选择的项是：{{ checkedList }}</p>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            var app = new Vue({
+                el: "#app",
+                data: {
+                    checked: true,
+                    checkedList: ["html", "js"]
+                }
+            })
+        </script>
+    </body>
+</html>

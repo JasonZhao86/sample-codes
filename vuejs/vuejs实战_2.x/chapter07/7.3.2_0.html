@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <p>总数：{{ total }}</p>
+            <my-component v-model="total"></my-component>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            Vue.component("my-component", {
+                template: "<button @click='handleAdd'>+1</button>",
+                data: function () {
+                    return {
+                        counter: 0
+                    }
+                },
+                methods: {
+                    handleAdd: function () {
+                        this.counter++
+                        // $emit()的事件名是特殊的input，对应v-model绑定的数据total，这是一个语法糖
+                        this.$emit("input", this.counter)
+                    }
+                }
+            })
+
+            var app = new Vue({
+                el: "#app",
+                data: {
+                    total: 0
+                }
+            })
+        </script>
+    </body>
+</html>

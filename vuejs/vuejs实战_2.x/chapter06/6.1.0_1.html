@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <input type="text" v-model="message" placeholder="请输入...." />
+            <p>输入的内容是：{{ message }}</p>
+            <hr />
+            <textarea v-model="text" placeholder="请输入...."></textarea>
+            <p>输入的内容是：</p>
+            <p style="white-space: pre">{{ text }}</p>
+
+            <hr />
+            <!-- 如果是用中文输入法输入中文，一般在没有选定饲组前，也就是在拼音阶段，Vue 是不会更新数据的，当敲下汉字时才会触发更新。 如果希望总是实时更新，可以用＠input来替代v-model-->
+            <textarea @input="handleInput" placeholder="请输入...."></textarea>
+            <p>输入的内容是：</p>
+            <p style="white-space: pre">{{ inputText }}</p>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            var app = new Vue({
+                el: "#app",
+                data: {
+                    message: "",
+                    text: "",
+                    inputText: ""
+                },
+                methods: {
+                    handleInput: function (e) {
+                        this.inputText = e.target.value
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

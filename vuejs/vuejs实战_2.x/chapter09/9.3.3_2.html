@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>render函数中不能使用v-if和v-for等指令</title>
+</head>
+<body>
+<div id="app">
+    <ele :list="list"></ele>
+    <button @click="handleClick">显示列表</button>
+</div>
+
+<script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+<script>
+    Vue.component('ele', {
+        props: {
+            list: {
+                type: Array,
+                default: function () {
+                    return []
+                }
+            }
+        },
+        // 在Render函数中，不再需要Vue内置的指令，比如v-if、v-for，当然，也没办法使用它们，可以用原生JavaScript代替。
+        render: function (createElement) {
+            if (this.list.length) {
+                return createElement('ul', this.list.map(function (item) {
+                    return createElement('li', item.name)
+                }))
+            } else {
+                return createElement('p', '列表为空')
+            }
+        }
+    })
+
+    var app = new Vue({
+        el: "#app",
+        data: {
+            list: []
+        },
+        methods: {
+            handleClick: function () {
+                this.list = [
+                    {name: '《vue.js实战》'},
+                    {name: '《JavaScript语言精粹》'},
+                    {name: '《JavaScript高级程序设计》'},
+                ]
+            }
+        }
+    })
+</script>
+</body>
+</html>

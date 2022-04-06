@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+    <head>
+        <meta charset="UTF-8">
+        <title>render函数中slot的使用</title>
+    </head>
+    <body>
+        <div id="app">
+            <ele></ele>
+            <ele>
+                <p>slot的内容</p>
+            </ele>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            Vue.component('ele', {
+                render: function (createElement) {
+                    // 在Render函数中会大量使用this.$slots来访问slot，但是没有使用slot时，显示一个默认内容的这部分逻辑需要我们自己实现。
+                    if (this.$slots.default === undefined) {
+                        return createElement('div', '没有使用slot时显示的文本')
+                    } else {
+                        return createElement('div', this.$slots.default)
+                    }
+                }
+            })
+
+            var app = new Vue({
+                el: "#app",
+            })
+        </script>
+    </body>
+</html>

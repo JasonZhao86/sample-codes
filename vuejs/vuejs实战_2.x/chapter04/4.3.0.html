@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <div :style="{'color': color, 'fontSize': fontSize + 'px' }">文本行</div>
+        </div>
+
+        <div id="app2">
+            <div :style="styles">文本行2</div>
+        </div>
+
+        <div id="app3">
+            <div :style="[styleA, styleB]">文本行3</div>
+        </div>
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            var app = new Vue({
+                el: "#app",
+                data: {
+                    color: 'red',
+                    fontSize: 14
+                }
+            })
+
+            var app2 = new Vue({
+                el: "#app2",
+                data: {
+                    // 对象语法
+                    styles: {
+                        'color': 'green',
+                        'fontSize': 24 + 'px'
+                    }
+                }
+            })
+
+            var app3 = new Vue({
+                el: "#app3",
+                data: {
+                    // 数组语法
+                    styleA: {background: 'gray'},
+                    styleB: {fontSize: 54 + 'px'},
+                }
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>手动挂载组件（高级用法）</title>
+</head>
+    <body>
+        <div id="mount-div">
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            // var app = new Vue({el: "#app",})
+            // Vue是一个基类，Vue.extend是基础Vue构造器，通过它创建一个新的组件类（子类）
+            var myComponent = Vue.extend({
+                template: "<div>Hello：{{ name }}</div>",
+                data: function () {
+                    return {
+                        name: 'Aresn'
+                    }
+                }
+            })
+
+            // 创建myComponent组件实例，并挂载到mount-div，注意：id为mount-div的div元素会被替换为组件MyComponent的template的内容
+            // new myComponent().$mount('#mount-div')
+            new myComponent({el: '#mount-div'})         // 这两种写法等同
+        </script>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <my-list :books="books">
+                <!-- scope作用域插槽也可以是命名的Slot，详情参考官方文档：
+                    https://cn.vuejs.org/v2/guide/components-slots.html#%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%8F%92%E6%A7%BD
+                -->
+                <template slot='book' scope="props">
+                    <li>{{ props.bookName }}</li>
+                </template>
+            </my-list>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            // 作用域slot，使用复用的模板替换slot，模板的内容部分来自于slot中的数据（通过scope）
+            Vue.component("my-list", {
+                props: {
+                    books: {
+                        type: Array,
+                        default: function () {
+                            return []
+                        }
+                    }
+                },
+                template: "<ul>" +
+                        "<slot name='book' v-for='book in books' :book-name='book.name'></slot>" +
+                    "</ul>",
+            })
+
+            var app = new Vue({
+                el: "#app",
+                data: {
+                    books: [
+                        {name: '《vue.js实战》'},
+                        {name: '《JavaScript语言精粹》'},
+                        {name: '《JavaScript高级程序设计》'},
+                    ]
+                }
+            })
+        </script>
+    </body>
+</html>

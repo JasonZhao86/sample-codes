@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            {{ message }}
+            <!-- 用特殊的属性ref来为子组件指定一个索引名称 -->
+            <my-component ref="comA"></my-component>
+            <button @click="handleRef">点击获取子组件的内容</button>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            Vue.component("my-component", {
+                template: "<div>{{ msg }}</div>",
+                data: function () {
+                    return {
+                        msg: "子组件的内容"
+                    }
+                }
+            })
+
+            // $refs只在组件渲染完成后才填充，并且它是非响应式的．它仅仅作为一个直接访问子组件的应急方案，应当避免在模板或计算属性中使用$refs
+            var app = new Vue({
+                el: "#app",
+                data: {
+                    message: "父组件默认信息"
+                },
+                methods: {
+                    handleRef: function () {
+                        // 过this.$children来一一遍历出我们需要的一个组件实例是比较困难的，尤其是组件动态渲染时，它们的序列是不固定的。通过子组件索引$refs获取指定的子组件
+                        this.message = this.$refs.comA.msg
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

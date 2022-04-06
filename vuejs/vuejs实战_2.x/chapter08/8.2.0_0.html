@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <div id="A">
+                <div id="B"></div>
+            </div>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            let A = document.getElementById("A")
+            let B = document.getElementById("B")
+            // contains方法是用来判断元素A是否包含了元素B，包含返回true，不包含返回false.
+            console.log(A.contains(B))
+            console.log(B.contains(A))
+        </script>
+    </body>
+</html>

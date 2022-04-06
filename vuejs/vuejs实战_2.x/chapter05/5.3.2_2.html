@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <ul>
+                <template v-for="book in books">
+                    <li>书名：{{ book.name }}</li>
+                    <li>作者：{{ book.author }}</li>
+                    <br />
+                </template>
+            </ul>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            var app = new Vue({
+                el: "#app",
+                data: {
+                    books: [
+                        {
+                            name: '《vue.js实战》',
+                            author: "梁澈"
+                        },
+                        {
+                            name: '《JavaScript语言精粹》',
+                            author: "Douglas Crockford"
+                        },
+                        {
+                            name: '《JavaScript高级程序设计》',
+                            author: "Nicholas C.Zakas"
+                        },
+                    ]
+                }
+            })
+            // 数组修改方法一：
+            // Vue.set(app.books, 3, {
+
+            // 数组修改方法二：
+            // 在非webpack模式下也可以用vue实例的$set方法替代
+            app.$set(app.books, 3, {
+                name: '《JavaScript高级程序设计》',
+                author: "赵宣"
+            })
+
+            // 数组修改方法三：
+            app.books.splice(3, 1, {
+                name: '《JavaScript高级程序设计》',
+                author: "赵宣-jason"
+            })
+
+            // 将数组的长度改为1
+            app.books.splice(1)
+        </script>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            你好：{{ fullName }}
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            var app = new Vue({
+                // el: "#app",
+                el: document.getElementById('app'),
+                data: {
+                    firstName: "",
+                    lastName: ""
+                },
+                computed: {
+                    fullName: {
+                        // getter，用于读取
+                        get: function () {
+                            return this.firstName + " " + this.lastName
+                        },
+                        // setter，写入时触发
+                        set: function (fullname) {
+                            var names = fullname.split(" ")
+                            this.firstName = names[0]
+                            this.lastName = names[names.length - 1]
+                        },
+                    }
+                }
+            })
+            setTimeout(function (){app.fullName = "zhao xuan"}, 2000)
+        </script>
+    </body>
+</html>

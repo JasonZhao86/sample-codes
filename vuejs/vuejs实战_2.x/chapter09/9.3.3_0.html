@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>render函数中不能使用v-if和v-for等指令</title>
+</head>
+    <body>
+        <div id="app">
+            <ele :show="show"></ele>
+            <button @click="show = !show">切换show</button>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            Vue.component('ele', {
+                props: {
+                    show: {
+                        type: Boolean,
+                        default: false
+                    }
+                },
+                // 在Render函数中，不再需要Vue内置的指令，比如v-if、v-for，当然，也没办法使用它们，可以用原生JavaScript代替。
+                render: function (createElement) {
+                    if (this.show) {
+                        return createElement('p', 'show的值为true')
+                    } else {
+                        return createElement('p', 'show的值为false')
+                    }
+                }
+            })
+
+            var app = new Vue({
+                el: "#app",
+                data: {
+                    show: false
+                },
+            })
+        </script>
+    </body>
+</html>

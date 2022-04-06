@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <anchor :level="2" title="特性">特性</anchor>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script type="text/x-template" id="anchor">
+            <div>
+                <h1 v-if="level === 1">
+                    <a :href="'#' + title">
+                        <slot></slot>
+                    </a>
+                </h1>
+                <h2 v-if="level === 2">
+                    <a :href="'#' + title">
+                        <slot></slot>
+                    </a>
+                </h2>
+                <h3 v-if="level === 3">
+                    <a :href="'#' + title">
+                        <slot></slot>
+                    </a>
+                </h3>
+                <h4 v-if="level === 4">
+                    <a :href="'#' + title">
+                        <slot></slot>
+                    </a>
+                </h4>
+                <h5 v-if="level === 5">
+                    <a :href="'#' + title">
+                        <slot></slot>
+                    </a>
+                </h5>
+                <h6 v-if="level === 6">
+                    <a :href="'#' + title">
+                        <slot></slot>
+                    </a>
+                </h6>
+            </div>
+        </script>
+        <script>
+            /*
+            Vue.component('anchor', {
+                template: "#anchor",
+                props: {
+                    level: {
+                        type: Number,
+                        required: true
+                    },
+                    title: {
+                        type: String,
+                        default: ''
+                    }
+                }
+            })
+            */
+
+            // 使用render函数改写上面的template写法
+            Vue.component('anchor', {
+                props: {
+                    level: {
+                        type: Number,
+                        required: true
+                    },
+                    title: {
+                        type: String,
+                        default: ''
+                    }
+                },
+                render: function (createElement) {
+                    return createElement(
+                        'h' + this.level,
+                        // 子节点
+                        [
+                            createElement(
+                                'a',
+                                // 组件选项
+                                {
+                                    domProps: {
+                                        href: '#' + this.title
+                                    }
+                                },
+                                // 这里的this.$slots代表的是anchor组件的slot
+                                this.$slots.default
+                            )
+                        ],
+                    )
+                }
+            })
+
+            var app = new Vue({
+                el: "#app",
+            })
+        </script>
+    </body>
+</html>

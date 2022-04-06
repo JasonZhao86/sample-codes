@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>render函数中不能使用v-model指令</title>
+</head>
+<body>
+<div id="app">
+    <ele></ele>
+</div>
+
+<script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+<script>
+    Vue.component('ele', {
+        /*
+        // 对应的v-model的写法：
+        template: "<input v-model='value' />" +
+                  "<p>{{ value }}}</p>",
+        */
+        // Render函数里也没有与v-model对应的API，需要自己来实现逻辑，可以用原生JavaScript代替
+        render: function (createElement) {
+            let _this = this
+            return createElement('div',
+                [
+                    // v-model本质就是prop: value和event: input组合使用的一个语法糖
+                    createElement('input', {
+                        // 通过以下两个参数实现了双向绑定
+                        domProps: {
+                            // 将组件的value绑定到input的value
+                            value: this.value
+                        },
+                        on: {
+                            // 将input的value绑定到组件的value
+                            input: function (e) {
+                                _this.value = e.target.value
+                            }
+                        }
+                    }),
+                    createElement('p', 'value: ' + this.value)
+                ])
+        },
+        data: function () {
+            return {
+                value: ''
+            }
+        }
+    })
+
+    var app = new Vue({
+        el: "#app",
+    })
+</script>
+</body>
+</html>

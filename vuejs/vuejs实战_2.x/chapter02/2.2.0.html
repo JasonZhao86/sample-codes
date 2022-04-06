@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue示例</title>
+</head>
+    <body>
+        <div id="app">
+            <p v-if="show">这是一段文本</p>
+            <button v-on:click="handClose">点击隐藏</button>
+            <br />
+<!--            <button v-on:click="show = true">点击显示</button>-->
+            <button @click="show = true">点击显示</button>              <!-- 语法糖 -->
+            <br />
+<!--            <a v-bind:href="url">github首页</a>-->
+            <a :href="url">github首页</a>             <!-- 语法糖 -->
+<!--            <img v-bind:src="imgUrl" />-->
+            <img :src="imgUrl" />
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.min.js"></script>
+        <script>
+            var app = new Vue({
+                // el: "#app",
+                el: document.getElementById('app'),
+                data: {
+                    show: true,
+                    url: "https://www.github.com",
+                    imgUrl: "https://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=%E5%9B%BE%E7%89%87&hs=0&pn=0&spn=0&di=7042744173476184065&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&ie=utf-8&oe=utf-8&cl=2&lm=-1&cs=1305456094%2C3865830840&os=3330783663%2C95601121&simid=3417198601%2C116276182&adpicid=0&lpn=0&ln=30&fr=ala&fm=&sme=&cg=&bdtype=0&oriquery=%E5%9B%BE%E7%89%87&objurl=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp09%2F210611094Q512b-0-lp.jpg%26refer%3Dhttp%3A%2F%2Fimg.jj20.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1648274937%26t%3D7dd4628cff69810c5b4f331bdd38a927&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3B33da_z%26e3Bv54AzdH3FprAzdH3Fnn9mmb_z%26e3Bip4s&gsm=1&islist=&querylist=&dyTabStr=MCwzLDEsNiw0LDIsNSw3LDgsOQ%3D%3D"
+                },
+                methods: {
+                    handClose: function () {
+                        // this.show = false
+                        this.close()
+                    },
+                    close: function () {
+                        this.show = false
+                    },
+                    init: function (text) {
+                        console.log(text)
+                    }
+                },
+                mounted: function () {
+                    this.init("在初始化时调用")
+                }
+            })
+            app.init("通过外部调用")
+        </script>
+    </body>
+</html>
