@@ -16,3 +16,13 @@ vuejs/vuejs实战_2.x/.idea
 *.ntvs*
 *.njsproj
 *.sln
+
+env/
+.idea
+*.pyc
+*.pyo
+.access_key
+*.log
+data/*
+staticpage/migrations
+

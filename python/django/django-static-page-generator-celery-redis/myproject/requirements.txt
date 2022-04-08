@@ -1,0 +1,6 @@
+Django==3.0.5
+celery==5.1.2
+redis==3.4.1
+eventlet # for windows only
+mysqlclient==1.4.6
+flower==1.0.0
