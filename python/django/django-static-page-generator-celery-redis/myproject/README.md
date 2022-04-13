@@ -92,6 +92,21 @@ flower==1.0.0
 &emsp;&emsp;修改`settings.py`新增celery有关的配置。celery默认也是有自己的配置文件的，名为`celeryconfig.py`，但由于管理多个配置文件很麻烦，我们把celery的配置参数也写在django的配置文件里：
 
 ```python
+DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'staticpage',
+        'USER': 'root',
+        'PASSWORD': '123.com',
+        'HOST': '172.31.1.10',
+        'PORT': '3306',
+    }
+}
+
 # 配置celery时区，默认时UTC。
 if USE_TZ:
     CELERY_TIMEZONE = TIME_ZONE
@@ -646,4 +661,12 @@ $ celery -A myproject flower --address=127.0.0.1 --port=5555
 ![image-20220409001505568](https://gitee.com/jasonzhao86/blog-pics/raw/master/images/image-20220409001505568.png)
 
 <br />
- 
+
+<br />
+
+## 三、reference
+
+* [Django实战：Django 3.0 +Redis 3.4 +Celery 4.4异步生成静态HTML文件(附源码)](https://mp.weixin.qq.com/s?__biz=MjM5OTMyODA4Nw==&mid=2247484549&idx=1&sn=7d6d4fa67ed9e653b3f13f7c0030a150&chksm=a73c64bd904bedab2a6f1fced72ab8f14b901eacb2b74027df3c1261eafa3bbbfe545f4f347d&scene=21#wechat_redirect)
+
+
+
