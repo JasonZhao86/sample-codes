@@ -1,0 +1,7 @@
+Django==3.2
+django-celery-beat==2.2.1
+django-celery-results==2.2.0
+eventlet==0.33.0
+flower==1.0.0
+redis==3.5.3
+mysqlclient==1.4.6
